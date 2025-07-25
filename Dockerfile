@@ -17,4 +17,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD gunicorn app:app --bind 0.0.0.0:8000 & python3 main.py
+CMD gunicorn app:app --bind 0.0.0.0:${PORT:-8080} & python3 main.py
