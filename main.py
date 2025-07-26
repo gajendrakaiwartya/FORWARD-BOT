@@ -68,9 +68,11 @@ if __name__ == "__main__":
         print("Bot Started.")
         await idle()
 
-    loop = asyncio.new_event_loop()     # ✅ no warning
-    asyncio.set_event_loop(loop)        # ✅ DB uses same loop
-    loop.run_until_complete(main())
+    loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(main())
+    except KeyboardInterrupt:
+        print("Bot stopped manually.")
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
