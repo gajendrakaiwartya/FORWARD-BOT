@@ -69,10 +69,7 @@ if __name__ == "__main__":
         await idle()
 
     loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(main())
-    except KeyboardInterrupt:
-        print("Bot stopped manually.")
+        asyncio.run(main())   #
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
