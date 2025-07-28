@@ -16,40 +16,70 @@ from os import environ, execle, system
 
 START_TIME = time.time()
 
-# Main buttons layout
-main_buttons = [[
-    InlineKeyboardButton('❣️ ᴅᴇᴠᴇʟᴏᴘᴇʀ ❣️', url='https://t.me/MR_ABHAY_K')
-],[
-    InlineKeyboardButton('🔍 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ', url='https://t.me/AK_BOTZ_SUPPORT'),
-    InlineKeyboardButton('🤖 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ', url='https://t.me/AK_BOTZ_UPDATE')
-],[
-    InlineKeyboardButton('💝 sᴜʙsᴄʀɪʙᴇ ᴍʏ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ', url='https://youtube.com/@Tech_VJ')
-],[
-    InlineKeyboardButton('👨‍💻 ʜᴇʟᴘ', callback_data='help'),
-    InlineKeyboardButton('💁 ᴀʙᴏᴜᴛ', callback_data='about')
-],[
-    InlineKeyboardButton('⚙ sᴇᴛᴛɪɴɢs', callback_data='settings#main')
-]]
+# Sequence image list
+IMAGE_LIST = [
+    "https://i.postimg.cc/0jmnDVFJ/FORWARD-BOT-PIC-1.png",
+    "https://i.postimg.cc/hGj0pDNn/FORWARD-BOT-PIC-10.png",
+    "https://i.postimg.cc/3x310CBd/FORWARD-BOT-PIC-11.png",
+    "https://i.postimg.cc/pd6J7NtF/FORWARD-BOT-PIC-12.png",
+    "https://i.postimg.cc/kXQw5hW0/FORWARD-BOT-PIC-13.png",
+    "https://i.postimg.cc/26L7NHzX/FORWARD-BOT-PIC-14.png",
+    "https://i.postimg.cc/bNhH4H43/FORWARD-BOT-PIC-15.png",
+    "https://i.postimg.cc/xjH3sFpX/FORWARD-BOT-PIC-16.png",
+    "https://i.postimg.cc/D0qQ884r/FORWARD-BOT-PIC-17.png",
+    "https://i.postimg.cc/8zkdzkpv/FORWARD-BOT-PIC-18.png",
+    "https://i.postimg.cc/4yTVks2m/FORWARD-BOT-PIC-2.png",
+    "https://i.postimg.cc/90tTcKs1/FORWARD-BOT-PIC-3.png",
+    "https://i.postimg.cc/ZK4pwYyQ/FORWARD-BOT-PIC-4.png",
+    "https://i.postimg.cc/sg2SRnm9/FORWARD-BOT-PIC-5.png",
+    "https://i.postimg.cc/cHftcP1Z/FORWARD-BOT-PIC-6.png",
+    "https://i.postimg.cc/NG7r2hPk/FORWARD-BOT-PIC-7.png",
+    "https://i.postimg.cc/HLcyrVfr/FORWARD-BOT-PIC-8.png",
+    "https://i.postimg.cc/J4xJvwNz/FORWARD-BOT-PIC-9.png"
+]
 
-# ✅ Updated /start with photo
+# ⬇ Create a user_image_index collection for tracking
+from motor.motor_asyncio import AsyncIOMotorClient
+from config import Config
+client = AsyncIOMotorClient(Config.DATABASE_URI)
+USER_TRACKER = client.userdb.image_index  # new collection
+
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     user = message.from_user
+    user_id = user.id
 
-    # User को DB में save करो अगर नया है
-    if not await db.is_user_exist(user.id):
-        await db.add_user(user.id, user.first_name)
+    # Add to user DB if new
+    if not await db.is_user_exist(user_id):
+        await db.add_user(user_id, user.first_name)
 
-    reply_markup = InlineKeyboardMarkup(main_buttons)
+    # Fetch or initialize user's image index
+    data = await USER_TRACKER.find_one({"_id": user_id})
+    index = 0 if not data else (data.get("index", 0) + 1) % len(IMAGE_LIST)
 
-    # Photo के साथ caption भेजेंगे
-    await client.send_photo(
-        chat_id=message.chat.id,
-        photo="https://i.postimg.cc/yx5X5Dxp/file-0000000001886230b82df936231bfb50.png",
-        caption=Script.START_TXT.format(message.from_user.first_name),
-        reply_markup=reply_markup
+    # Save updated index
+    await USER_TRACKER.update_one(
+        {"_id": user_id},
+        {"$set": {"index": index}},
+        upsert=True
     )
 
+    reply_markup = InlineKeyboardMarkup([
+        [InlineKeyboardButton('❣️ ᴅᴇᴠᴇʟᴏᴘᴇʀ ❣️', url='https://t.me/MR_ABHAY_K')],
+        [InlineKeyboardButton('🔍 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ', url='https://t.me/AK_BOTZ_SUPPORT'),
+         InlineKeyboardButton('🤖 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ', url='https://t.me/AK_BOTZ_UPDATE')],
+        [InlineKeyboardButton('💝 sᴜʙsᴄʀɪʙᴇ ᴍʏ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ', url='https://youtube.com/@Tech_VJ')],
+        [InlineKeyboardButton('👨‍💻 ʜᴇʟᴘ', callback_data='help'),
+         InlineKeyboardButton('💁 ᴀʙᴏᴜᴛ', callback_data='about')],
+        [InlineKeyboardButton('⚙ sᴇᴛᴛɪɴɢs', callback_data='settings#main')]
+    ])
+
+    await message.reply_photo(
+        photo=IMAGE_LIST[index],
+        caption=Script.START_TXT.format(user.mention, temp.U_NAME, temp.B_NAME),
+        reply_markup=reply_markup
+    )
+    
 # ✅ Restart command
 @Client.on_message(filters.private & filters.command(['restart']) & filters.user(Config.BOT_OWNER))
 async def restart(client, message):
