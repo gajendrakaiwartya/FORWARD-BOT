@@ -4,6 +4,10 @@
 
 from os import environ 
 
+class temp:
+    U_NAME = "@MR_ABHAY_K"
+    B_NAME = "@AK_BOTZ_FORWARD_BOT"
+
 class Config:
     API_ID = int(environ.get("API_ID", ""))
     API_HASH = environ.get("API_HASH", "")
