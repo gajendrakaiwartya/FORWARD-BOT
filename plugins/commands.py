@@ -64,15 +64,16 @@ async def start(client, message):
         upsert=True
     )
 
-    reply_markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton('❣️ ᴅᴇᴠᴇʟᴏᴘᴇʀ ❣️', url='https://t.me/MR_ABHAY_K')],
-        [InlineKeyboardButton('🔍 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ', url='https://t.me/AK_BOTZ_SUPPORT'),
-         InlineKeyboardButton('🤖 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ', url='https://t.me/AK_BOTZ_UPDATE')],
-        [InlineKeyboardButton('💝 sᴜʙsᴄʀɪʙᴇ ᴍʏ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ', url='https://youtube.com/@Tech_VJ')],
-        [InlineKeyboardButton('👨‍💻 ʜᴇʟᴘ', callback_data='help'),
-         InlineKeyboardButton('💁 ᴀʙᴏᴜᴛ', callback_data='about')],
-        [InlineKeyboardButton('⚙ sᴇᴛᴛɪɴɢs', callback_data='settings#main')]
-    ])
+    main_buttons = [
+    [InlineKeyboardButton('❣️ ᴅᴇᴠᴇʟᴏᴘᴇʀ ❣️', url='https://t.me/MR_ABHAY_K')],
+    [InlineKeyboardButton('🔍 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ', url='https://t.me/AK_BOTZ_SUPPORT'),
+     InlineKeyboardButton('🤖 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ', url='https://t.me/AK_BOTZ_UPDATE')],
+    [InlineKeyboardButton('💝 sᴜʙsᴄʀɪʙᴇ ᴍʏ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ', url='https://youtube.com/@Tech_VJ')],
+    [InlineKeyboardButton('👨‍💻 ʜᴇʟᴘ', callback_data='help'),
+     InlineKeyboardButton('💁 ᴀʙᴏᴜᴛ', callback_data='about')],
+    [InlineKeyboardButton('⚙ sᴇᴛᴛɪɴɢs', callback_data='settings#main')]
+]
+
 
     await message.reply_photo(
         photo=IMAGE_LIST[index],
@@ -115,12 +116,14 @@ async def how_to_use(bot, query):
     )
 
 # ✅ Back callback
-@Client.on_callback_query(filters.regex(r'^back'))
+@@Client.on_callback_query(filters.regex(r'^back'))
 async def back(bot, query):
-    reply_markup = InlineKeyboardMarkup(main_buttons)
-    await query.message.edit_text(
-       reply_markup=reply_markup,
-       text=Script.START_TXT.format(query.from_user.first_name))
+    reply_markup = InlineKeyboardMarkup(main_buttons)
+    await query.message.edit_text(
+        text=Script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
+        reply_markup=reply_markup,
+        disable_web_page_preview=True
+    )
 
 # ✅ About callback
 @Client.on_callback_query(filters.regex(r'^about'))
