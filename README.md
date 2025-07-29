@@ -3,7 +3,7 @@
 </p>
 
 
-u# AK AUTO Forward Bot
+# AK AUTO Forward Bot
 
 <b>Auto Restart All User Forwarding After Bot Restarted.</b>
 
