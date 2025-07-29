@@ -7,7 +7,7 @@ u# VJ Forward Bot
 
 <b>Auto Restart All User Forwarding After Bot Restarted.</b>
 
-![Typing SVG](https://readme-typing-svg.herokuapp.com/?lines=Welcome+To+VJ+Forward+Bot+!)
+![Typing SVG](https://readme-typing-svg.herokuapp.com/?lines=Welcome+To+AK+AUTO+Forward+Bot+!)
 
 ## How To Deploy [Video Tutorial](https://youtu.be/A-iIh_5WAlk)
 
