@@ -1,4 +1,9 @@
-# VJ Forward Bot
+<p align="center">
+  <img src="https://i.postimg.cc/D0qQ884r/FORWARD-BOT-PIC-17.png" alt="Forward Bot Banner" width="350"/>
+</p>
+
+
+u# VJ Forward Bot
 
 <b>Auto Restart All User Forwarding After Bot Restarted.</b>
 
