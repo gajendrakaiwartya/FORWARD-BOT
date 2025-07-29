@@ -13,6 +13,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMedi
 import psutil
 import time as time
 from os import environ, execle, system
+import random  
 
 START_TIME = time.time()
 
@@ -38,17 +39,51 @@ main_buttons = [[
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
 
+# Add at the top of your file
+
+# Start images list
+START_IMAGES = [
+    "https://i.postimg.cc/0jmnDVFJ/FORWARD-BOT-PIC-1.png",
+    "https://i.postimg.cc/hGj0pDNn/FORWARD-BOT-PIC-10.png",
+    "https://i.postimg.cc/3x310CBd/FORWARD-BOT-PIC-11.png",
+    "https://i.postimg.cc/pd6J7NtF/FORWARD-BOT-PIC-12.png",
+    "https://i.postimg.cc/kXQw5hW0/FORWARD-BOT-PIC-13.png",
+    "https://i.postimg.cc/26L7NHzX/FORWARD-BOT-PIC-14.png",
+    "https://i.postimg.cc/bNhH4H43/FORWARD-BOT-PIC-15.png",
+    "https://i.postimg.cc/xjH3sFpX/FORWARD-BOT-PIC-16.png",
+    "https://i.postimg.cc/D0qQ884r/FORWARD-BOT-PIC-17.png",
+    "https://i.postimg.cc/8zkdzkpv/FORWARD-BOT-PIC-18.png",
+    "https://i.postimg.cc/4yTVks2m/FORWARD-BOT-PIC-2.png",
+    "https://i.postimg.cc/90tTcKs1/FORWARD-BOT-PIC-3.png",
+    "https://i.postimg.cc/ZK4pwYyQ/FORWARD-BOT-PIC-4.png",
+    "https://i.postimg.cc/sg2SRnm9/FORWARD-BOT-PIC-5.png",
+    "https://i.postimg.cc/cHftcP1Z/FORWARD-BOT-PIC-6.png",
+    "https://i.postimg.cc/NG7r2hPk/FORWARD-BOT-PIC-7.png",
+    "https://i.postimg.cc/HLcyrVfr/FORWARD-BOT-PIC-8.png",
+    "https://i.postimg.cc/J4xJvwNz/FORWARD-BOT-PIC-9.png"
+]
+
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     user = message.from_user
+
+    # New user ko DB me add karo
     if not await db.is_user_exist(user.id):
         await db.add_user(user.id, user.first_name)
-    reply_markup = InlineKeyboardMarkup(main_buttons)
-    await client.send_message(
-        chat_id=message.chat.id,
-        reply_markup=reply_markup,
-        text=Script.START_TXT.format(message.from_user.first_name))
 
+    # Random image select karo
+    selected_image = random.choice(START_IMAGES)
+
+    # Inline buttons
+    reply_markup = InlineKeyboardMarkup(main_buttons)
+
+    # Send image with caption and buttons
+    await client.send_photo(
+        chat_id=message.chat.id,
+        photo=selected_image,
+        caption=Script.START_TXT.format(user.first_name),
+        reply_markup=reply_markup
+    )
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
