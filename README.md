@@ -23,7 +23,7 @@
 - [x] Auto Restart Pending Task After Bot Restart 
 
 
-<b>To Know About All Features, Join My <a href='https://t.me/VJ_Botz'>Update Channel</a>.</b>
+<b>To Know About All Features, Join My <a href='https://t.me/AK_BOTZ_UPDATE'>Update Channel</a>.</b>
 
 ## Commands
 
@@ -49,4 +49,4 @@ broadcast - broadcast a message to all your users (owner only)
 
 ## Credits
 
-* <b>[ABHAY KAIWARTYA](https://T.ME/AK_BOTZ_UPDATE)</b>
+* <b>[ABHAY KAIWARTYA](https://T.ME/MR_ABHAY_K)</b>
