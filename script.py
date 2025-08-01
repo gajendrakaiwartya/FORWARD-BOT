@@ -87,6 +87,8 @@ class  Script(object):
 ║┣⪼<b>📊 Cᴜʀʀᴇɴᴛ Sᴛᴀᴛᴜs:</b> <code>{}</code>
 ║┃
 ║┣⪼<b>𖨠 Pᴇʀᴄᴇɴᴛᴀɢᴇ:</b> <code>{}</code> %
+║┃
+║┣⪼<b>🔗 POWERED BY:</b> <a href='https://t.me/AK_BOTZ_UPDATE'>AK_BOTZ_UPDATE</a>
 ║╰━━━━━━━━━━━━━━━➣ 
 ╚════❰ {} ❱══❍⊱❁۪۪
 """
