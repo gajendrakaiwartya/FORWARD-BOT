@@ -49,4 +49,4 @@ broadcast - broadcast a message to all your users (owner only)
 
 ## Credits
 
-* <b>[Tech VJ](https://youtube.com/@Tech_VJ)</b>
+* <b>[Tech VJ](https://T.ME/AK_BOTZ_UPDATE@MR_ABHAY_K)</b>
